@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5175/")
+@CrossOrigin()
 @RequestMapping("/notes")
 public class NotesController {
 
