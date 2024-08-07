@@ -83,7 +83,8 @@ public class NotesController {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String username = auth.getName();
-            return notesServices.updateNote(username, noteId, updatedNote);
+            notesServices.updateNote(username, noteId, updatedNote);
+            return ResponseEntity.ok("Updated note successfully") ;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while updating the note: " + e.getMessage());
