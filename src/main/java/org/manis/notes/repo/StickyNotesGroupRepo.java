@@ -4,6 +4,6 @@ import org.bson.types.ObjectId;
 import org.manis.notes.models.StickyNoteGroup;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface StickyNotesGroupRepo extends MongoRepository<StickyNoteGroup, ObjectId> {
+public interface StickyNotesGroupRepo extends MongoRepository<StickyNoteGroup, String> {
 
 }

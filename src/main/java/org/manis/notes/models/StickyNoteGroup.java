@@ -17,7 +17,7 @@ import java.util.List;
 @Document(collection = "sticky_note_groups")
 public class StickyNoteGroup {
     @Id
-    private ObjectId id;
+    private String id;
     private String name;
 
     @DBRef

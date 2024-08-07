@@ -33,7 +33,7 @@ public class NotesServices {
 
 
 
-    public ResponseEntity<String> deleteNote(String username, ObjectId noteId) {
+    public ResponseEntity<String> deleteNote(String username, String noteId) {
         // Find user by username
         Optional<User> optionalUser = userRepo.findByUsername(username);
         if (optionalUser.isEmpty()) {
@@ -85,7 +85,7 @@ public class NotesServices {
 
 
 
-    public ResponseEntity<String> updateNote(String username, ObjectId noteId, StickyNote updatedNote) {
+    public ResponseEntity<String> updateNote(String username, String noteId, StickyNote updatedNote) {
         // Find user by username
         Optional<User> optionalUser = userRepo.findByUsername(username);
         if (optionalUser.isEmpty()) {

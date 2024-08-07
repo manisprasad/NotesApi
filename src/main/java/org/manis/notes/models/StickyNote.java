@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "sticky_notes")
 public class StickyNote {
     @Id
-    private ObjectId id;
+    private String id;
     private String title;
     private String content;
     private String color;

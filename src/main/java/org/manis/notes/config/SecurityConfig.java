@@ -42,10 +42,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF protection
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/auth/**").permitAll()  // Allow public access to authentication endpoints
-                        .anyRequest().authenticated()  // All other requests require authentication
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated()
                 ).userDetailsService(customUserDetailImp)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

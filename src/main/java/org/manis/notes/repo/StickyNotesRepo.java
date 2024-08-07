@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Collection;
 
-public interface StickyNotesRepo extends MongoRepository<StickyNote, ObjectId> {
+public interface StickyNotesRepo extends MongoRepository<StickyNote, String> {
 
     Collection<Object> findByColor(String color);
 }

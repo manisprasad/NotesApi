@@ -78,7 +78,7 @@ public class NotesController {
 
     @PutMapping("/update/{noteId}")
     public ResponseEntity<?> updateNote(
-            @PathVariable ObjectId noteId,
+            @PathVariable String noteId,
             @RequestBody StickyNote updatedNote) {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -91,7 +91,7 @@ public class NotesController {
     }
 
     @DeleteMapping("/delete/{noteId}")
-    public ResponseEntity<?> deleteNote(@PathVariable ObjectId noteId) {
+    public ResponseEntity<?> deleteNote(@PathVariable String noteId) {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String username = auth.getName();
