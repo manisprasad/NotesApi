@@ -44,11 +44,11 @@ public class NotesServices {
         // Find sticky note by ID
         Optional<StickyNote> noteOptional = stickyNotesRepo.findById(noteId);
         if (noteOptional.isEmpty()) {
-            return ResponseEntity.notFound().build(); // Sticky note not found
+            return ResponseEntity.notFound().build(); 
         }
         StickyNote note = noteOptional.get();
 
-        // Check if the sticky note belongs to the user
+        
         boolean noteBelongsToUser = user.getStickyNoteGroups().stream()
                 .flatMap(group -> group.getStickyNotes().stream())
                 .anyMatch(stickyNote -> stickyNote.getId().equals(noteId));
@@ -57,10 +57,10 @@ public class NotesServices {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to delete this note.");
         }
 
-        // Flag to check if the note was removed from at least one group
+      
         boolean noteRemoved = false;
 
-        // Iterate through all sticky note groups and remove the note
+      
         for (StickyNoteGroup group : user.getStickyNoteGroups()) {
             if (group.getStickyNotes().remove(note)) {
                 noteRemoved = true;
@@ -114,7 +114,7 @@ public class NotesServices {
         existingNote.setColor(updatedNote.getColor());
         existingNote.setGroupName(updatedNote.getGroupName());
         existingNote.setFavourite(updatedNote.isFavourite());
-        existingNote.setUpdatedAt(System.currentTimeMillis()); // Update the timestamp
+        existingNote.setUpdatedAt(System.currentTimeMillis());
 
         // Handle group changes
         if (!oldGroupName.equals(updatedNote.getGroupName())) {
@@ -197,7 +197,7 @@ public class NotesServices {
                     return newGroup;
                 });
 
-        // Check if the group is correctly initialized
+     
         if (group == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to initialize the group.");
         }
@@ -205,14 +205,14 @@ public class NotesServices {
         // Add the sticky note to the group and update the user
         if (!group.getStickyNotes().contains(savedNote)) {
             group.getStickyNotes().add(savedNote);
-            stickyNotesGroupRepo.save(group); // Save changes to the group
+            stickyNotesGroupRepo.save(group); 
         }
 
         if (!user.getStickyNoteGroups().contains(group)) {
             user.getStickyNoteGroups().add(group);
         }
 
-        userRepo.save(user); // Save changes to the user
+        userRepo.save(user);
 
         return ResponseEntity.ok("Note added successfully");
     }
@@ -232,10 +232,10 @@ public class NotesServices {
 
         // Retrieve all StickyNoteGroups associated with the user
         List<StickyNote> allStickyNotes = user.getStickyNoteGroups().stream()
-                .flatMap(group -> group.getStickyNotes().stream()) // Flatten the nested lists
-                .collect(Collectors.toList()); // Collect into a list
+                .flatMap(group -> group.getStickyNotes().stream())
+                .collect(Collectors.toList()); 
 
-        return ResponseEntity.ok(allStickyNotes); // Return the list of sticky notes
+        return ResponseEntity.ok(allStickyNotes);
     }
 
     public ResponseEntity<List<StickyNote>> filterByGroupName(String username, String groupName) {
@@ -248,15 +248,13 @@ public class NotesServices {
 
 
 
-        // Filter sticky notes by group name from the user's sticky note groups
+
         List<StickyNote> filteredNotes = user.getStickyNoteGroups().stream()
                 .flatMap(group -> group.getStickyNotes().stream())
-                .filter(note -> groupName.equals(note.getGroupName())) // Apply filter based on groupName
+                .filter(note -> groupName.equals(note.getGroupName()))
                 .collect(Collectors.toList());
 
-        if (filteredNotes.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+      
         return ResponseEntity.ok(filteredNotes);
     }
 
@@ -274,10 +272,7 @@ public class NotesServices {
                 .filter(note -> color.equals(note.getColor()))
                 .toList();
 
-        // Check if there are no notes with the specified color
-        if (colorNotes.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+       
 
         // Return the filtered notes
         return ResponseEntity.ok(colorNotes);
